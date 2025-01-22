@@ -7,6 +7,7 @@ import com.example.board.author.dtos.AuthorSaveReq;
 import com.example.board.author.dtos.AuthorUpdateReq;
 import com.example.board.author.service.AuthorService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,18 +15,23 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/author")
-public class AuthorRestController {
+public class AuthorController {
     private final AuthorService authorService;
 
-    public AuthorRestController(AuthorService authorService) {
+    public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
 
     //회원목록조회
     @GetMapping("/list")
-    public String authorList(){
+    public String authorList(Model model){
         List<AuthorListRes> authorListResList = authorService.findAll();
+        model.addAttribute("authorList", authorListResList);
         return "author/author_list";
+    }
+    @GetMapping("/create")
+    public String authorCreate(){
+        return "/author/author_create";
     }
 
 
@@ -33,13 +39,15 @@ public class AuthorRestController {
     @PostMapping("/create")
     public String authorCreate(@Valid AuthorSaveReq dto) {
         authorService.save(dto);
-        return "OK";
+        return "redirect:/";
     }
 
     //회원상세조회
     @GetMapping("/detail/{id}")
-    public AuthorDetailRes authorDetail(@PathVariable Long id){
-        return authorService.findById(id);
+    public String authorDetail(@PathVariable Long id, Model model) {
+        AuthorDetailRes dto = authorService.findById(id);
+        model.addAttribute("author", authorService.findById(id));
+        return "/author/author_detail";
     }
 
     //회원수정
