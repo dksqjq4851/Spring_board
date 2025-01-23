@@ -35,6 +35,13 @@ public class PostController {
 
     }
 
+    @GetMapping("/list/fetchjoin")
+    @ResponseBody
+    public String postListFetchJoin(){
+        postService.listFetchJoin();
+        return "ok";
+    }
+
     @GetMapping("/list/paging")
 //    페이징처리를 위한 데이터 형식 : localhost:8080/post/list/paging?size=10&page=0&sort=createdTime,desc
     public String postListPaging(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
@@ -53,7 +60,7 @@ public class PostController {
     @PostMapping("/create")
     public String postCreate(@Valid PostSaveReq dto){
         postService.save(dto);
-        return "redirect:/";
+        return "redirect:/post/list/paging";
     }
     //글상세조회
     @GetMapping("/detail/{id}")

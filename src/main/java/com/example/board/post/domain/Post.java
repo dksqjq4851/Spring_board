@@ -45,6 +45,9 @@ public class Post extends BaseTimeEntity {
         this.title = dto.getTitle();
         this.contents = dto.getContents();
     }
+    public void updateAppointment(String appointment){
+        this.appointment = appointment;
+    }
 }
 //Post 객체
 // -id, title(length=50, notnull), contents(length=3000), String appointment, LocalDateTime appointmentTime
