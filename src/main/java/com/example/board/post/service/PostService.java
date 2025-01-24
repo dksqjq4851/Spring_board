@@ -11,6 +11,7 @@ import com.example.board.post.dtos.PostUpdateReq;
 import com.example.board.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,8 @@ public class PostService {
     }
 
     public void save(PostSaveReq dto) {
-        Author author = authorRepository.findByEmail(dto.getEmail()).orElseThrow(()->new EntityNotFoundException());
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Author author = authorRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException());
         LocalDateTime appointmentTime = null;
         if(dto.getAppointment().equals("Y")) {
             if(dto.getAppointmentTime().isEmpty() || dto.getAppointmentTime()==null) {

@@ -26,8 +26,8 @@ public class AuthorSaveReq {
 //    ex)ADMIN, USER등으로 입력시 Enum클래스로 변환
     private Role role = Role.USER;
 
-    public Author toEntity(){
-        return Author.builder().name(this.name).email(this.email).passowrd(this.password).role(this.role).build();
+    public Author toEntity(String encodedPassowrd){
+        return Author.builder().name(this.name).email(this.email).passowrd(encodedPassowrd).role(this.role).build();
     }
 
 }

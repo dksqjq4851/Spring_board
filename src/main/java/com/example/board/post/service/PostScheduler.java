@@ -26,15 +26,15 @@ public class PostScheduler {
 //    예를들어) 0 0/1 * * * * : 매일 매시 1분마다.
 //    예를들어) 0 1 * * * * : 매일 매시 1분에
 
-    @Scheduled(cron = "0 0/1 * * * *")
-    public void postSchedule(){
-        System.out.println("===예약글쓰기 스케줄러 시작===");
-        Page<Post> posts = postRepository.findAllByAppointment(Pageable.unpaged(), "Y");
-        LocalDateTime now = LocalDateTime.now();
-        for(Post p : posts){
-            if (p.getAppointmentTime().isBefore(now)){
-                p.updateAppointment("N");
-            }
-        }
-    }
+//    @Scheduled(cron = "0 0/1 * * * *")
+//    public void postSchedule(){
+//        System.out.println("===예약글쓰기 스케줄러 시작===");
+//        Page<Post> posts = postRepository.findAllByAppointment(Pageable.unpaged(), "Y");
+//        LocalDateTime now = LocalDateTime.now();
+//        for(Post p : posts){
+//            if (p.getAppointmentTime().isBefore(now)){
+//                p.updateAppointment("N");
+//            }
+//        }
+//    }
 }

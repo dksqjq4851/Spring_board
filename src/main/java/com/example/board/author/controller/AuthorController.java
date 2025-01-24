@@ -33,6 +33,10 @@ public class AuthorController {
     public String authorCreate(){
         return "/author/author_create";
     }
+    @GetMapping("/login")
+    public String authorLoginScreen(){
+        return "/author/author_login";
+    }
 
 
     //회원가입

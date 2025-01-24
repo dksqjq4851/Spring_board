@@ -2,10 +2,14 @@ package com.example.board.post.dtos;
 
 
 import com.example.board.author.domain.Author;
+import com.example.board.common.service.LoginSuccessHandler;
 import com.example.board.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
@@ -14,13 +18,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class PostSaveReq {
+    @Autowired
+    public LoginSuccessHandler loginSuccessHandler;
     @NotEmpty
     private String title;
     private String contents;
-    @NotEmpty
-    private String email;
     private String appointment;
     private String appointmentTime;
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 
 //    public Post toEntity(Author author){
